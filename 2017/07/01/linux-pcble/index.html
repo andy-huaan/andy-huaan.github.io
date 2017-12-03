@@ -7,19 +7,20 @@
   
   
   
-  <title>关于赵华安 | 赵华安</title>
+  <title>Java PC端蓝牙(BLE)开发 | 赵华安</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="个人简介80后，天蝎男青年，全栈软件工程师、PMP，常年游弋于IT圈擅长C#、Java、Android、Web前端、PHP、Python、数据库、Linux、架构、项目管理、项目运维等等目前正涉足大数据和AI领域，对NLP自然语言处理有一定研究 本博客的目的记录工作中遇到的问题和解决方案；记录常用的编程知识。如果刚好对">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于赵华安">
-<meta property="og:url" content="http://andy-huaan.github.io/about/index.html">
+  <meta name="description" content="Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信">
+<meta name="keywords" content="Linux,蓝牙,BLE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java PC端蓝牙(BLE)开发">
+<meta property="og:url" content="http://andy-huaan.github.io/2017/07/01/linux-pcble/index.html">
 <meta property="og:site_name" content="赵华安">
-<meta property="og:description" content="个人简介80后，天蝎男青年，全栈软件工程师、PMP，常年游弋于IT圈擅长C#、Java、Android、Web前端、PHP、Python、数据库、Linux、架构、项目管理、项目运维等等目前正涉足大数据和AI领域，对NLP自然语言处理有一定研究 本博客的目的记录工作中遇到的问题和解决方案；记录常用的编程知识。如果刚好对你有用，更是喜不自禁！ 个人语录 遇到问题的态度，处理问题的思路和方法，这就是能">
+<meta property="og:description" content="Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-30T07:40:50.785Z">
+<meta property="og:updated_time" content="2017-12-03T05:48:23.359Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于赵华安">
-<meta name="twitter:description" content="个人简介80后，天蝎男青年，全栈软件工程师、PMP，常年游弋于IT圈擅长C#、Java、Android、Web前端、PHP、Python、数据库、Linux、架构、项目管理、项目运维等等目前正涉足大数据和AI领域，对NLP自然语言处理有一定研究 本博客的目的记录工作中遇到的问题和解决方案；记录常用的编程知识。如果刚好对你有用，更是喜不自禁！ 个人语录 遇到问题的态度，处理问题的思路和方法，这就是能">
+<meta name="twitter:title" content="Java PC端蓝牙(BLE)开发">
+<meta name="twitter:description" content="Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信">
   
   
     <link rel="icon" href="/img/favicon.png">
@@ -42,7 +43,7 @@
           fancybox: true,
           animate: true,
           isHome: false,
-          isPost: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -274,11 +275,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-linux-pcble" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/about/index.html" class="article-date">
-      <time datetime="2012-07-10T13:16:56.000Z" itemprop="datePublished">2012-07-10</time>
+      <a  href="/2017/07/01/linux-pcble/" class="article-date">
+      <time datetime="2017-07-01T05:06:23.000Z" itemprop="datePublished">2017-07-01</time>
 </a>
 
     </div>
@@ -292,7 +293,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      关于赵华安
+      Java PC端蓝牙(BLE)开发
     </h1>
   
 
@@ -301,8 +302,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BLE/">BLE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/蓝牙/">蓝牙</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -310,81 +319,62 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <style>
-    .article-meta {
-        display: none;
-    }
-    #container .article .article-title {
-        padding-right: 0;
-    }
-    .article-header {
-        padding: 0;
-        padding-top: 26px;
-        border-left: none;
-        text-align: center;
-    }
-    .article-header:hover {
-        border-left: none;
-    }
-    .article-title {
-        font-size: 1.6em
-    }
-    .article-meta {
-        display: none;
-    }
-    .article-entry hr {
-        margin: 0;
-    }
-    #container .article-info-post.article-info {
-      display: none;
-      }
-    #container .article .article-title {
-    padding: 0;
-    }
-</style>
-
-
-          
-        <h2 id="个人简介"><a href="#个人简介" class="headerlink" title="个人简介"></a>个人简介</h2><p>80后，天蝎男青年，全栈软件工程师、PMP，常年游弋于IT圈<br>擅长C#、Java、Android、Web前端、PHP、Python、数据库、Linux、架构、项目管理、项目运维等等<br>目前正涉足大数据和AI领域，对NLP自然语言处理有一定研究</p>
-<h2 id="本博客的目的"><a href="#本博客的目的" class="headerlink" title="本博客的目的"></a>本博客的目的</h2><p>记录工作中遇到的问题和解决方案；记录常用的编程知识。如果刚好对你有用，更是喜不自禁！</p>
-<h2 id="个人语录"><a href="#个人语录" class="headerlink" title="个人语录"></a>个人语录</h2><ul>
-<li>遇到问题的态度，处理问题的思路和方法，这就是能力！</li>
-<li>万事俱备，你的价值又何在（要你何用）！</li>
-<li>写东西就一个诀窍，水喝多了，尿自然就有了！</li>
-<li>什么是人才，你交给他一件事情，他全力以赴做成了；你再交给他一件事情，他又千方百计实现了！</li>
-<li>优秀的人没有与生俱来的光环，也不比别人幸运，只是在每件事情上对结果、对自己有所要求，不因舒适而散漫放纵，不因辛苦而放弃追求！</li>
-<li>别人是不会走就想跑，你是不会爬就想飞！</li>
-<li>当你不知道别人正在经历什么的时候，千万不要妄言他人的是非！</li>
-<li>工作中有人不愿推销自己公司的产品，总觉得有些吹嘘夸耀，但我想反问一句：在你面试或演讲等场合中，你是否走在“展现最好的自我”和“吹嘘夸耀”之间的微妙地带？</li>
-<li>多留一会无能之辈，好过匆匆错失有能之人！</li>
-<li>不要老想着做不顺就放弃，哪个团队都有问题，哪个团队都有优点，团队的问题也是你脱颖而出的机会！</li>
+        <p>Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见<br>本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信<br><a id="more"></a></p>
+<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="软件版本说明"><a href="#软件版本说明" class="headerlink" title="软件版本说明"></a>软件版本说明</h3><p>PC下的蓝牙开发，主要依托BlueZ技术，由于ubuntu系统自带BlueZ，因此BlueZ相关软件无需自行安装，需安装系列软件</p>
+<ul>
+<li>系统版本：ubuntu-17.04-desktop-amd64</li>
+<li>cmake版本：3.9.0</li>
+<li>zlibe版本：1.2.11</li>
+<li>libffi版本：3.0.13</li>
+<li>pcre版本：8.38</li>
+<li>glib版本：2.48.2</li>
 </ul>
-<h2 id="兴趣爱好"><a href="#兴趣爱好" class="headerlink" title="兴趣爱好"></a>兴趣爱好</h2><ul>
-<li>运动：轮滑、足球、羽毛球</li>
-<li>乐器：葫芦丝、埙</li>
-<li>动漫：火影，海贼，秦时明月等等</li>
-<li>分享：喜欢知识、技能共享</li>
-<li>读书：心理、历史、金融、专业技术</li>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>安装pcre时，请添加配置参数：./configure –prefix=/usr –enable-utf8 –enable-unicode-properties</li>
+<li>安装TinyB时，请添加配置参数：cmake -DBUILDJAVA=ON</li>
 </ul>
-<h2 id="技术擅长"><a href="#技术擅长" class="headerlink" title="技术擅长"></a>技术擅长</h2><ul>
-<li>熟悉Java、C# .NET、Android、Web前端、微信公共号及小程序、混编开发，了解PHP、Python开发</li>
-<li>熟悉Spring、SpringMVC、Hibernate、Mybatis、SpringBoot、Struts2等框架并能进行框架间整合</li>
-<li>熟悉Tymeleaf、Axis2、YUI、EasyUI、JQueryUI、JeUI、AmazeUI、FlatUI、MUI、LayUI、WeUI、BootStrap等第三方UI库</li>
-<li>熟悉Oracle、SQLServer、Mysql、MariaDB、PostgreSQL、redis并能基于SQL语言进行函数、触发器、存储过程、JOB的开发，了解MongoDB、Hadoop</li>
-<li>熟悉VPN、TongLinkQ并能基于第三方中间件开发</li>
-<li>熟悉UML、GUI、Mindjet MindManager、Visio、Axure等工具，能运用建模工具进行面向对象的分析和设计</li>
-<li>熟悉NodeJS、ES6、Gulp、Grunt、Require、Vue、SASS、WebPack、BackBone、NwJS等JS库，并能独立进行JS面向对象编程和模块式开发</li>
-<li>熟悉Gradle、Maven等项目构建工具</li>
-<li>熟悉VisualStudio、Eclipse、MyEclipse、STS、IDEA、PHPStorm、PyCharm、WebStorm、atom、VsCode、Hbuilder、Haroopad等各类开发工具使用</li>
-<li>熟悉CentOS、Ubuntu、Fedora Linux操作系统并能进行Shell编程、常用软件安装部署维护等</li>
-<li>熟练使用Tomcat、Jetty、Resin、WebLogic服务器容器并能进行项目发布</li>
-<li>了解NLP技术并能进行部分AI开发和集成</li>
-<li>熟悉基于BLE技术的智能硬件开发</li>
-<li>熟悉WebSockt技术并能独立开发</li>
-<li>熟悉支付宝、微信、银联、友盟等第三方SDK集成</li>
-<li>熟悉GIT、SVN、GitLab、Gitolite、CVS等版本控制库并能独立部署维护</li>
-<li>熟悉项目架构和项目管理</li>
+<h3 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h3><ul>
+<li>安装cmake</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.cmake.org/files/v3.9/cmake-3.9.0.tar.gz</span><br><span class="line">tar -zxvf cmake-3.9.0.tar.gz</span><br><span class="line">cd cmake-2.8.10.2</span><br><span class="line">./bootstrap</span><br><span class="line">gmake</span><br><span class="line">gmake install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装zlibe</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://zlib.net/zlib-1.2.11.tar.gz</span><br><span class="line">tar -xzf zlib-1.2.11.tar.gz</span><br><span class="line">cd zlib-1.2.11/</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装libffi</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz</span><br><span class="line">tar -xzf libffi-3.0.13.tar.gz</span><br><span class="line">cd libffi-3.0.13/</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装pcre</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://ftp.pcre.org/pub/pcre/pcre-8.38.tar.gz</span><br><span class="line">tar -zxvf pcre-8.38.tar.gz</span><br><span class="line">cd pcre-8.38</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装glib</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://ftp.gnome.org/pub/gnome/sources/glib/2.48.2/glib-2.48.2.tar.xz</span><br><span class="line">tar -xJf glib-2.48.2.tar.xz</span><br><span class="line">cd glib-2.48.2</span><br><span class="line">./configur</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装TinyB</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/intel-iot-devkit/tinyb.git</span><br><span class="line">cd tinyb</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake -DBUILDJAVA=ON ..</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>编译TinyB后，需要在Java项目中引用的文件libjavatinyb.so、libtinyb.so、tinyb.jar</p>
+<h2 id="软件配置及检测"><a href="#软件配置及检测" class="headerlink" title="软件配置及检测"></a>软件配置及检测</h2><ul>
+<li>确保蓝牙没有被阻止：rfkill unblock bluetooth</li>
+<li>确保blueoothd守护进程已启动，ps -eF | grep bluetoothd，如果蓝牙守护进程没有启动：systemctl start bluetooth.service</li>
+<li>确保使用-E标志运行bluetoothd，如果没有：vim /lib/systemd/system/bluetooth.service 在启动命令后添加-E参数</li>
+<li>确保您的DBus策略允许用户访问BlueZ GATT界面</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/dbus-1/system.d/bluetooth.conf  在&lt;policy context=&quot;default&quot;&gt;下添加</span><br><span class="line">&lt;allow send_interface=&quot;org.bluez.GattService1&quot;/&gt;</span><br><span class="line">&lt;allow send_interface=&quot;org.bluez.GattCharacteristic1&quot;/&gt;</span><br><span class="line">&lt;allow send_interface=&quot;org.bluez.GattDescriptor1&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>确保你的内核支持蓝牙</li>
+</ul>
+<p>(1) lsmod | grep bluetooth应该返回一个包含蓝牙的线路，如果没有，尝试modprobe bluetooth或insmod bluetooth<br>(2) /proc/config或者/proc/config.gz还是/boot/config应该包含CONFIG_BT=y或CONFIG_BT=m和CONFIG_BT_LE=y。如果CONFIG_BT=m启用，请确保使用modprobe bluetooth或加载您的模块insmod bluetooth<br>(3) rfkill list 应至少显示一行蓝牙<br>另外，在linux系统中，可以使用gatttool命令进行蓝牙检查</p>
+<h2 id="代码获取"><a href="#代码获取" class="headerlink" title="代码获取"></a>代码获取</h2><p>实际上线项目：某妇幼保健院病患7*24h体温集中监控系统<br>Java PC BLE通信主要有如下三种方式</p>
+<ol>
+<li>扫描设备-&gt;建立链接-&gt;扫描服务-&gt;扫描特征值-&gt;数据读写</li>
+<li>定向链接设备-&gt;建立链接-&gt;定向获取服务-&gt;定向获取特征值-&gt;数据读写</li>
+<li>定向链接设备(扫描设备)-&gt;建立链接-&gt;定向获取服务(扫描服务)-&gt;定向获取特征值(扫描特征值)-&gt;自动数据通知<br>具体Java代码请联系作者<a href="http://andy.cnlod.com" target="_blank" rel="noopener">赵华安</a>获取</li>
+</ol>
 
       
     </div>
@@ -392,11 +382,78 @@
   </div>
   
     
+    <div class="dashang">
+        <img src="http://p07vzamyt.bkt.clouddn.com/weixinpay.png"/>
+        <img src="http://p07vzamyt.bkt.clouddn.com/zhifubaopay.png"/>
+    </div>
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 赵华安(Andy) 的个人博客">赵华安(Andy)</a></p>
+        <p><span>发布时间:</span>2017年07月01日 - 13时06分</p>
+        <p><span>最后更新:</span>2017年12月03日 - 13时48分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/01/linux-pcble/" title="Java PC端蓝牙(BLE)开发">http://andy-huaan.github.io/2017/07/01/linux-pcble/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://andy-huaan.github.io/2017/07/01/linux-pcble/　　作者: 赵华安(Andy)" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
 
+
+
+<nav id="article-nav">
+  
+  
+    <a  href="/2016/10/22/linux-lvs/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LVS+KeepAlived高可用集群搭建</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
 
   
 </article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#软件安装"><span class="toc-number">1.</span> <span class="toc-text">软件安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#软件版本说明"><span class="toc-number">1.1.</span> <span class="toc-text">软件版本说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">1.2.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译安装"><span class="toc-number">1.3.</span> <span class="toc-text">编译安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件配置及检测"><span class="toc-number">2.</span> <span class="toc-text">软件配置及检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码获取"><span class="toc-number">3.</span> <span class="toc-text">代码获取</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
 
 
 
@@ -417,6 +474,39 @@
     
 
 
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/2016/10/22/linux-lvs/" title="下一篇: LVS+KeepAlived高可用集群搭建">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/10/css-skills/">常用CSS技巧总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a></li></ul>
+    <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
 
 
 

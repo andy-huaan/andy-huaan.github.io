@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  
+  
+  
+  
+  <title>LVS+KeepAlived高可用集群搭建 | 赵华安</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="LVS是一个虚拟的服务器集群系统,LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器">
+<meta name="keywords" content="Linux,环境搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LVS+KeepAlived高可用集群搭建">
+<meta property="og:url" content="http://andy-huaan.github.io/2016/10/22/linux-lvs/index.html">
+<meta property="og:site_name" content="赵华安">
+<meta property="og:description" content="LVS是一个虚拟的服务器集群系统,LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/2961bbf1-e5e9-42ca-9809-38555654a7a5.jpg">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/b9401893-ce6a-49c3-83ad-5ac644bc08bf.png">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/c57b2a3b-be87-4384-93d8-e7e246c88bfc.png">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/086d608f-ed61-4429-a8d3-b6bc6416d90e.png">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/c62843c1-7b77-45a5-b21d-bd66353b1712.png">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/07722d2a-49e9-4311-a1b8-e0d2e8538123.png">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/9eb53dd2-5c13-4f79-a4dd-0e9d85fb770f.jpg">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/5ffb9771-8757-431f-840c-9b358a34e87e.jpg">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/6e95a551-3606-414a-88f1-8d22ebb2f8f3.jpg">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/8edde5ea-8832-4efa-83d4-1a5886ac160e.jpg">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/10735014-e9f3-439f-a84b-edec6f5a27db.jpg">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/f8077394-e323-4a5e-a06a-69ebc0dfb914.jpg">
+<meta property="og:image" content="http://p07vzamyt.bkt.clouddn.com/e8c721da-f02c-456d-ab91-e40d510518b4.jpg">
+<meta property="og:updated_time" content="2017-12-03T04:54:24.011Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LVS+KeepAlived高可用集群搭建">
+<meta name="twitter:description" content="LVS是一个虚拟的服务器集群系统,LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器">
+<meta name="twitter:image" content="http://p07vzamyt.bkt.clouddn.com/2961bbf1-e5e9-42ca-9809-38555654a7a5.jpg">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: true
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="http://andy.cnlod.com" target="_blank">赵华安(Andy)</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">遇到问题的态度，处理问题的思路和方法，这就是能力</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="/archives/">所有文章</a></li>
+                        
+                            <li><a  href="/categories/coding/">爱编程</a></li>
+                        
+                            <li><a  href="/categories/linux">Linux</a></li>
+                        
+                            <li><a  href="/categories/tools">工具</a></li>
+                        
+                            <li><a  href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github"  target="_blank" href="https://github.com/andy-huaan" title="github">github</a>
+                            
+                                <a class="fl linkedin"  target="_blank" href="http://www.linkedin.com/in/赵华安-andy-a93034136" title="linkedin">linkedin</a>
+                            
+                                <a class="fl mail"  target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=MUtZUF5ZRFBQXwEIAwRxV15JXFBYXR9SXlw" title="mail">mail</a>
+                            
+                                <a class="fl qq"  target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1036661027&site=qq&menu=yes" title="qq">qq</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/BLE/" style="font-size: 10px;">BLE</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/环境搭建/" style="font-size: 15px;">环境搭建</a> <a href="/tags/蓝牙/" style="font-size: 10px;">蓝牙</a> <a href="/tags/软件配置/" style="font-size: 10px;">软件配置</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.cnlod.com">大医盟</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://andy.cnlod.com">赵华安</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">80后，天蝎男青年，全栈软件工程师、PMP，常年游弋于IT圈,擅长C#、Java、Android、Web前端、PHP、Python、数据库、Linux、架构、项目管理、项目运维等等！目前正涉足大数据和AI领域。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">赵华安(Andy)</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">赵华安(Andy)</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">遇到问题的态度，处理问题的思路和方法，这就是能力</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/categories/coding/">爱编程</a></li>
+                
+                    <li><a href="/categories/linux">Linux</a></li>
+                
+                    <li><a href="/categories/tools">工具</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/andy-huaan" title="github">github</a>
+                    
+                        <a class="linkedin" target="_blank" href="http://www.linkedin.com/in/赵华安-andy-a93034136" title="linkedin">linkedin</a>
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=MUtZUF5ZRFBQXwEIAwRxV15JXFBYXR9SXlw" title="mail">mail</a>
+                    
+                        <a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1036661027&site=qq&menu=yes" title="qq">qq</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-linux-lvs" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2016/10/22/linux-lvs/" class="article-date">
+      <time datetime="2016-10-22T03:13:15.000Z" itemprop="datePublished">2016-10-22</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LVS+KeepAlived高可用集群搭建
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境搭建/">环境搭建</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>LVS是一个虚拟的服务器集群系统,LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器<br><a id="more"></a></p>
+<h2 id="LVS介绍"><a href="#LVS介绍" class="headerlink" title="LVS介绍"></a>LVS介绍</h2><h3 id="LVS集群三层结构"><a href="#LVS集群三层结构" class="headerlink" title="LVS集群三层结构"></a>LVS集群三层结构</h3><ul>
+<li>负载调度器（load balancer），它是整个集群对外面的前端机，负责将客户的请求发送到一组服务器上执行，而客户认为服务是来自一个IP地址（我们可称之为虚拟IP地址）上的</li>
+<li>服务器池（server pool），是一组真正执行客户请求的服务器，执行的服务有WEB、MAIL、FTP和DNS等</li>
+<li>共享存储（shared storage），它为服务器池提供一个共享的存储区，这样很容易使得服务器池拥有相同的内容，提供相同的服务</li>
+</ul>
+<h3 id="Keepalived作用"><a href="#Keepalived作用" class="headerlink" title="Keepalived作用"></a>Keepalived作用</h3><p>Keepalived的作用是检测服务器的状态，如果有一台web服务器死机，或工作出现故障，Keepalived将检测到，并将有故障的服务器从系统中剔除，同时使用其他服务器代替该服务器的工作，当服务器工作正常后Keepalived自动将服务器加入到服务器群中，这些工作全部自动完成，不需要人工干涉，需要人工做的只是修复故障的服务器</p>
+<h3 id="系统环境说明"><a href="#系统环境说明" class="headerlink" title="系统环境说明"></a>系统环境说明</h3><p>系统环境：VMware 12.1.0、CentOS-6.6-x86_64，关闭SELINUX，关闭防火墙(可配置防火墙后不关闭)</p>
+<h2 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h2><p><img src="http://p07vzamyt.bkt.clouddn.com/2961bbf1-e5e9-42ca-9809-38555654a7a5.jpg" alt=""><br>第1层是LVS服务器（1个主，1个从；从可以多个）用来转发请求，需要安装ipvsadm和keepAlived；<br>第2层是提供具体服务的服务器（表中用了2个；当然也可以是多个，现实的应用会上百台。），安装的是具体的服务，这里我们安装的是TOMCAT<br>主机环境如下：</p>
+<ul>
+<li>192.168.211.100　 LVS_VIP（VIP：Virtual IP），公共对外IP地址又称虚拟IP地址。可以是真实有效的公网IP</li>
+<li>192.168.211.136　 LVS_Master</li>
+<li>192.168.211.137　 LVS_Backup</li>
+<li>192.168.211.138　 WEB1_RealServer</li>
+<li>192.168.211.139　 WEB2_RealServer</li>
+</ul>
+<h3 id="LVS层安装LVS和KeepAlived"><a href="#LVS层安装LVS和KeepAlived" class="headerlink" title="LVS层安装LVS和KeepAlived"></a>LVS层安装LVS和KeepAlived</h3><p>先安装LVS_Master服务器上的服务，LVS_Backup使用克隆虚拟机的方式，然后在配置文件修改三个参数即可，下面会讲到。<br>只要按照如下步骤一步一步来，我敢肯定一次成功！</p>
+<ul>
+<li>安装ipvsadm</li>
+</ul>
+<p>知识点：ipvsadm理解为IPVS管理工具；LVS（Linux Virtual Server）的核心为IPVS（IP Virtual Server），从Linux内核版本2.6起，IPVS模块已经编译进了Linux内核。<br>使用yum命令进行安装，系统会选择最适合内核版本的ipvsadm<br><code>yum -y install ipvsadm 或者 sudo yum -y install ipvsadm</code></p>
+<ul>
+<li>防火墙配置</li>
+</ul>
+<p>为了测试方便，我们直接关闭防火墙，在实际使用中开启需要的端口即可（具体配置可参考:<a href="https://andy-huaan.github.io/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a>）<br><code>service iptables stop</code></p>
+<ul>
+<li>KeepAlived 的安装</li>
+</ul>
+<p>知识点：KeepAlived是一个路由软件，它主要的目的是让我们通过简单的配置，实现高可用负载均衡，当然负载均衡依赖于Linux虚拟服务器（IPVS）的内核模块，其高可用性使用VRRP协议来实现，KeepAlived不仅会检测负载均衡服务器池中每台机器的健康状况并通知IPVS将非健康的机器从池中移除掉；同时它还能对负载均衡调度器本身实现健康状态检查，当主负载均衡调度器出现问题时，备用负载均衡调度器顶替主进行工作。<br>逐条执行如下命令，执行的原因暂不解释，实际就是需要这些组件，安装即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/src</span><br><span class="line">yum –y install libnfnetlink-devel</span><br><span class="line">yum -y install openssl-devel</span><br><span class="line">wget http://www.keepalived.org/software/keepalived-1.2.7.tar.gz</span><br><span class="line">wget http://mirror.centos.org/centos/6/os/x86_64/Packages/popt-static-1.13-7.el6.x86_64.rpm</span><br><span class="line">yum -y install popt-static-1.13-7.el6.x86_64.rpm</span><br><span class="line">yum -y install kernel-devel make gcc openssl-devel libnl* popt*</span><br><span class="line">ln -s /usr/src/kernels/2.6.32-220.13.1.el6.x86_64/ /usr/src/linux</span><br><span class="line">tar zxvf keepalived-1.2.7.tar.gz</span><br><span class="line">cd keepalived-1.2.7</span><br><span class="line">./configure --with-kernel-dir=/usr/src/kernels/2.6.32-358.2.1.el6.x86_64/</span><br></pre></td></tr></table></figure></p>
+<p>执行完最后一条时，终端应该显示为下图这样，如果不是请不要继续，自己返回来看下有没有哪里执行有误；<br><img src="http://p07vzamyt.bkt.clouddn.com/b9401893-ce6a-49c3-83ad-5ac644bc08bf.png" alt=""><br>继续执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br><span class="line">cp /usr/local/etc/rc.d/init.d/keepalived /etc/rc.d/init.d/  (复制自启动脚本[非必须]，1.3.0后的版本已经没有此脚本文件了)</span><br><span class="line">cp /usr/local/etc/sysconfig/keepalived /etc/sysconfig/</span><br><span class="line">mkdir /etc/keepalived</span><br><span class="line">cp /usr/local/etc/keepalived/keepalived.conf /etc/keepalived/</span><br><span class="line">cp /usr/local/sbin/keepalived /usr/sbin/</span><br></pre></td></tr></table></figure></p>
+<p>OK，KeepAlived安装完毕，然后进行配置</p>
+<ul>
+<li>KeepAlivde的配置</li>
+</ul>
+<p>[1]打开IP Forward 功能（LVS现有三种负载均衡规则都需要打开此功能，如果不打开此功能，下面的配置配得再好都无济于事。）<br>vim /etc/sysctl.conf<br>打开后修改里面“net.ipv4.ip_forward = 1”<br>修改好后保存退出，执行如下命令使设置立即生效<br>sysctl -p<br>[2]KeepAlivde的配置<br>配置文件在这个位置： /etc/keepalived/keepalived.conf<br>启动KeepAlived时，它默认会去/etc/keepalived下面找它的配置文件，所以上面命令中我们已经将这个配置文件复制过来了<br>下面是我配置好的完整文件内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line">global_defs &#123;</span><br><span class="line">	notification_email &#123;</span><br><span class="line">		test@sina.com</span><br><span class="line">	&#125;</span><br><span class="line">	notification_email_from admin@test.com</span><br><span class="line">	smtp_server 127.0.0.1</span><br><span class="line">	smtp_connect_timeout 30</span><br><span class="line">	router_id LVS_MASTER</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 60</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.211.100</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.211.100 8080 &#123;   # 注意虚拟IP的端口要与下面真是服务的端口一致，否则无法访问，但能ping通虚拟IP</span><br><span class="line">    delay_loop 6</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind DR</span><br><span class="line">    nat_mask 255.255.255.0</span><br><span class="line">    persistence_timeout 50</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">    real_server 192.168.211.138 8080 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">            connect_timeout 3</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 3</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    real_server 192.168.211.139 8080 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">            connect_timeout 3</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 3</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上就完成了keepAlived的配置，下面进行启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig keepalived on</span><br><span class="line">service keepalived start</span><br></pre></td></tr></table></figure></p>
+<p>查看进程<br><code>ps aux | grep keepalived  或者 ps -ef|grep keepalived</code><br><img src="http://p07vzamyt.bkt.clouddn.com/c57b2a3b-be87-4384-93d8-e7e246c88bfc.png" alt=""><br>Keepalived正常运行时，共启动3个进程，其中一个进程是父进程，负责监控其子进程；一个是vrrp子进程；另外一个是checkers子进程。<br>如果此时只看到2个进程，请从安装keepalived的步骤重新执行<br>查看下虚拟IP是否已经加上（重要）,如果第一次执行没有，可以等待1分钟左右再次执行，或者监控下/var/log/messages日志，等启动完成后在执行 ip a进行查看<br>ip a<br><img src="http://p07vzamyt.bkt.clouddn.com/086d608f-ed61-4429-a8d3-b6bc6416d90e.png" alt=""><br>说明虚拟IP已经自动配置上了<br>至此，LVS_MASTER服务器已经配置好并启动了，接下来我们配置web服务器</p>
+<h3 id="WEB服务器WEB1-RealServer的配置"><a href="#WEB服务器WEB1-RealServer的配置" class="headerlink" title="WEB服务器WEB1_RealServer的配置"></a>WEB服务器WEB1_RealServer的配置</h3><ul>
+<li>配置虚拟IP启动脚本</li>
+</ul>
+<p><code>vim /etc/init.d/realserver.sh</code><br>在文件中输入如下脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">SNS_VIP=192.168.211.100  #keepalived中设置的虚拟IP</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">start)</span><br><span class="line"> ifconfig lo:0 $SNS_VIP netmask 255.255.255.255 broadcast $SNS_VIP</span><br><span class="line"> /sbin/route add -host $SNS_VIP dev lo:0</span><br><span class="line"> echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line"> echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line"> echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line"> echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br><span class="line"> sysctl -p &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"> echo &quot;RealServer Start OK&quot;</span><br><span class="line"> ;;</span><br><span class="line">stop)</span><br><span class="line"> ifconfig lo:0 down</span><br><span class="line"> route del $SNS_VIP &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"> echo &quot;0&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line"> echo &quot;0&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line"> echo &quot;0&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line"> echo &quot;0&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br><span class="line"> echo &quot;RealServer Stoped&quot;</span><br><span class="line"> ;;</span><br><span class="line"> *)</span><br><span class="line"> echo &quot;Usage: $0 &#123;start|stop&#125;&quot;</span><br><span class="line"> exit 1</span><br><span class="line">esac</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>安装配置tomcat并启动，tomcat分配端口为8080，即上面keepalived中配置的端口</li>
+<li>启动虚拟IP的脚本</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sh /etc/init.d/realserver.sh start</span><br><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p>运行后会看到网络有了一个虚拟IP，如图：<br><img src="http://p07vzamyt.bkt.clouddn.com/c62843c1-7b77-45a5-b21d-bd66353b1712.png" alt=""><br>去LVS_MASTER服务器的终端查看下ipvsadm，查看已经连接上了WEB1服务器，运行命令<br>ipvsadm -ln<br>结果如图：<br><img src="http://p07vzamyt.bkt.clouddn.com/07722d2a-49e9-4311-a1b8-e0d2e8538123.png" alt=""><br>已经可以看到有服务器加入进来了。<br>此时我们访问网页<a href="http://192.168.211.100:8080" target="_blank" rel="noopener">http://192.168.211.100:8080</a><br>会出现192.168.211.138:8080对应的tomcat页面；或者使用命令行测试转发情况，如下：ipvsadm -lcn，如果未访问虚拟IP链接，此命令结果可能为空，不必担心，访问下虚拟IP链接即可<br><img src="http://p07vzamyt.bkt.clouddn.com/9eb53dd2-5c13-4f79-a4dd-0e9d85fb770f.jpg" alt=""></p>
+<h3 id="服务器克隆"><a href="#服务器克隆" class="headerlink" title="服务器克隆"></a>服务器克隆</h3><ul>
+<li>从WEB1_RealServer克隆一个WEB2_RealServer，启动tomcat服务，启动realserver.sh脚本。也可以不使用虚拟机克隆方式，可以使用自行安装方式，正式服务器一般使用直接安装方式</li>
+</ul>
+<p>在WEB2_RealServer执行ifconfig，可以看到多了一个虚拟IP<br><img src="http://p07vzamyt.bkt.clouddn.com/5ffb9771-8757-431f-840c-9b358a34e87e.jpg" alt=""><br>在LVS_Master服务器/etc/keepalived/keepalived.conf中添加WEB2_RealServer服务器的相关信息，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">real_server 192.168.211.139 8080 &#123;</span><br><span class="line">    weight 1</span><br><span class="line">    TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 3</span><br><span class="line">        nb_get_retry 3</span><br><span class="line">        delay_before_retry 3</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在LVS_Master服务器上重启keepalived：service keepalived restart<br>在LVS_Master执行ipvsadm -ln，可以看到新服务器WEB2_RealServer已经添加进来了<br><img src="http://p07vzamyt.bkt.clouddn.com/6e95a551-3606-414a-88f1-8d22ebb2f8f3.jpg" alt=""><br>使用浏览器访问<a href="http://192.168.211.100:8080/，再次执行ipvsadm" target="_blank" rel="noopener">http://192.168.211.100:8080/，再次执行ipvsadm</a> -ln命令，可以看相应的连接数<br><img src="http://p07vzamyt.bkt.clouddn.com/8edde5ea-8832-4efa-83d4-1a5886ac160e.jpg" alt=""></p>
+<ul>
+<li>从LVS_MASTER克隆一个LVS_BACKUP服务器，然后修改其中的参数，MASTER与BACKUP配置仅三处不同：global_defs中的router_id、vrrp_instance中的state、priority<br>（注意keepAlived的配置文件中有一个网卡设备，虚拟机的网卡设备可能是不一样的，有的是eth0，有的是eth1，所以也是要改动的，否则从服务器的服务器很有可能服务不正常），配置好的如下文：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line">global_defs &#123;</span><br><span class="line">        notification_email &#123;</span><br><span class="line">                test@sina.com</span><br><span class="line">        &#125;</span><br><span class="line">        notification_email_from admin@test.com</span><br><span class="line">        smtp_server 127.0.0.1</span><br><span class="line">        smtp_connect_timeout 30</span><br><span class="line">        router_id LVS_BACKUP</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 60</span><br><span class="line">    priority 90</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.211.100</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.211.100 8080 &#123;</span><br><span class="line">    delay_loop 6</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind DR</span><br><span class="line">    nat_mask 255.255.255.0</span><br><span class="line">    persistence_timeout 50</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">    real_server 192.168.211.138 8080 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">            connect_timeout 3</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 3</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    real_server 192.168.211.139 8080 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">            connect_timeout 3</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 3</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开启从服务器的keepalived，service keepalived start<br>OK，至此我们已经虚拟出2个LVS服务器，一对主从；2个WEB服务器，web1和web2。接下来我们进行测试，看能否满足我们的初始需求</p>
+<h2 id="负载和可用性测试"><a href="#负载和可用性测试" class="headerlink" title="负载和可用性测试"></a>负载和可用性测试</h2><p>开启每个服务器的相关服务，关闭防火墙，我们开始进行测试。</p>
+<ul>
+<li>测试LVS层(LVS_Master、LVS_Backup)</li>
+</ul>
+<p>(1)首先执行ip a命令，主服务器会存在一个虚拟IP(192.168.211.100)，从服务器不会存在这个虚拟IP。现在浏览网页(<a href="http://192.168.211.100:8080)显示正常。" target="_blank" rel="noopener">http://192.168.211.100:8080)显示正常。</a><br>(2)现在停掉LVS_MASTER的keepAlived服务，看LVS_BACKUP是否可以自动加上虚拟IP地址，并且开始转发请求。service keepalived stop<br>（注意keepAlived的配置文件中有一个网卡设备，虚拟机的网卡设备可能是不一样的，有的是eth0，有的是eth1，所以也是要改动的，否则从服务器的服务器很有可能服务不正常）<br>如果从服务器的keepalived 没有正常启动或者没有自动漂过IP，可以将从服务器的配置替换成主服务器keepalived配置，然后再排查问题，启动成功后并且访问成功后，再将配置文件修改为从服务器配置<br>主LVS停止后，可以看到虚拟IP已经自动漂移到从LVS了，访问<a href="http://192.168.211.100:8080" target="_blank" rel="noopener">http://192.168.211.100:8080</a><br>显示正常<br><img src="http://p07vzamyt.bkt.clouddn.com/10735014-e9f3-439f-a84b-edec6f5a27db.jpg" alt=""><br>(3)恢复主服务器的keepAlived服务后，主服务器立刻接替了从服务器的工作，就不做截图了。</p>
+<ul>
+<li>测试WEB服务器，看能否正常提供服务</li>
+</ul>
+<p>(1)先断掉WEB1，看下效果，ipvsadm中的服务器列表(ipvsadm -ln)，已经去掉了WEB1服务器(稍微有点时间延迟)，访问网页也只能访问到WEB2服务器了。<br><img src="http://p07vzamyt.bkt.clouddn.com/f8077394-e323-4a5e-a06a-69ebc0dfb914.jpg" alt=""><br>(2)开启WEB1，ipvsadm中的服务器列表中又重新加入了WEB1服务器<br><img src="http://p07vzamyt.bkt.clouddn.com/e8c721da-f02c-456d-ab91-e40d510518b4.jpg" alt=""><br>(3)开启WEB1，关掉WEB2。测试正常</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过不断的测试，终于完成了这篇稿子，望大家能够指正。还有一点就是很多时候都是配置文件中的一些小毛病造成的，比如：</p>
+<ol>
+<li>keepAlived中的通知邮箱好像必须要写，否则不正确；</li>
+<li>keepAlived中的网卡设备要注意，按照服务器的实际情况填写；</li>
+<li>使用时，必要的端口要打开，或者关掉防火墙。否则有事不提供服务；</li>
+<li>一些命令行的执行，少一些参数执行就可能会有一些问题。</li>
+<li>LINUX系统的目录结构也头疼，要不断的熟悉，否则也让你故意弄混了。</li>
+</ol>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
+<li>在服务器上执行ipvsadm -lcn命令时，可能列表为空，那是因为lvs管理器会自动清理超时连接，重新访问下虚拟IP地址即可看到链接列表</li>
+<li>启动时错误提示：Interface queue is empty，应该是找不到配置文件，默认配置文件应放在/etc/keepalived/keepalived.conf</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="dashang">
+        <img src="http://p07vzamyt.bkt.clouddn.com/weixinpay.png"/>
+        <img src="http://p07vzamyt.bkt.clouddn.com/zhifubaopay.png"/>
+    </div>
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 赵华安(Andy) 的个人博客">赵华安(Andy)</a></p>
+        <p><span>发布时间:</span>2016年10月22日 - 11时13分</p>
+        <p><span>最后更新:</span>2017年12月03日 - 12时54分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/22/linux-lvs/" title="LVS+KeepAlived高可用集群搭建">http://andy-huaan.github.io/2016/10/22/linux-lvs/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://andy-huaan.github.io/2016/10/22/linux-lvs/　　作者: 赵华安(Andy)" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a  href="/2017/07/01/linux-pcble/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java PC端蓝牙(BLE)开发
+        
+      </div>
+    </a>
+  
+  
+    <a  href="/2016/10/22/linux-nginx-https/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Nginx实现免费安全SSL</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS介绍"><span class="toc-number">1.</span> <span class="toc-text">LVS介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LVS集群三层结构"><span class="toc-number">1.1.</span> <span class="toc-text">LVS集群三层结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Keepalived作用"><span class="toc-number">1.2.</span> <span class="toc-text">Keepalived作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统环境说明"><span class="toc-number">1.3.</span> <span class="toc-text">系统环境说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装部署"><span class="toc-number">2.</span> <span class="toc-text">安装部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LVS层安装LVS和KeepAlived"><span class="toc-number">2.1.</span> <span class="toc-text">LVS层安装LVS和KeepAlived</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WEB服务器WEB1-RealServer的配置"><span class="toc-number">2.2.</span> <span class="toc-text">WEB服务器WEB1_RealServer的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器克隆"><span class="toc-number">2.3.</span> <span class="toc-text">服务器克隆</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载和可用性测试"><span class="toc-number">3.</span> <span class="toc-text">负载和可用性测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">5.</span> <span class="toc-text">注意</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/2017/07/01/linux-pcble/" title="上一篇: Java PC端蓝牙(BLE)开发">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/2016/10/22/linux-nginx-https/" title="下一篇: Nginx实现免费安全SSL">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/10/css-skills/">常用CSS技巧总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a></li></ul>
+    <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <a href="http://andy.cnlod.com" target="_blank">&copy; 2017 赵华安(Andy)</a>
+            </div>
+            <div class="footer-right">
+                <a href="http://www.cnlod.com" target="_blank">北京大医同盟健康管理有限责任公司</a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 2;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

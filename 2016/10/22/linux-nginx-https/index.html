@@ -5,22 +5,22 @@
   <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
   
   
-   
-    <meta name="keywords" content="linux" />
   
   
-  <title>Category: linux | 赵华安</title>
+  <title>Nginx实现免费安全SSL | 赵华安</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="andy 9527 华安 赵华安 个人网站 Java 前端 大数据 IT 招聘 zhaohuaan">
-<meta property="og:type" content="website">
-<meta property="og:title" content="赵华安">
-<meta property="og:url" content="http://andy-huaan.github.io/categories/linux/index.html">
+  <meta name="description" content="HTTPS实际是SSL over HTTP, 该协议通过SSL在发送方把原始数据进行加密，在接收方解密，因此，所传送的数据不容易被网络黑客截获和破解。本文主要介绍如何实现免费安全高可用的SSL">
+<meta name="keywords" content="Linux,环境搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx实现免费安全SSL">
+<meta property="og:url" content="http://andy-huaan.github.io/2016/10/22/linux-nginx-https/index.html">
 <meta property="og:site_name" content="赵华安">
-<meta property="og:description" content="andy 9527 华安 赵华安 个人网站 Java 前端 大数据 IT 招聘 zhaohuaan">
+<meta property="og:description" content="HTTPS实际是SSL over HTTP, 该协议通过SSL在发送方把原始数据进行加密，在接收方解密，因此，所传送的数据不容易被网络黑客截获和破解。本文主要介绍如何实现免费安全高可用的SSL">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-03T06:13:28.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="赵华安">
-<meta name="twitter:description" content="andy 9527 华安 赵华安 个人网站 Java 前端 大数据 IT 招聘 zhaohuaan">
+<meta name="twitter:title" content="Nginx实现免费安全SSL">
+<meta name="twitter:description" content="HTTPS实际是SSL over HTTP, 该协议通过SSL在发送方把原始数据进行加密，在接收方解密，因此，所传送的数据不容易被网络黑客截获和破解。本文主要介绍如何实现免费安全高可用的SSL">
   
   
     <link rel="icon" href="/img/favicon.png">
@@ -43,10 +43,10 @@
           fancybox: true,
           animate: true,
           isHome: false,
-          isPost: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
-          isCategory: true,
+          isCategory: false,
           open_in_new: true
       }
   </script>
@@ -275,228 +275,202 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-linux-nginx-https" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a  href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/2017/07/01/linux-pcble/" class="archive-article-date">
-      <time datetime="2017-07-01T05:06:23.000Z" itemprop="datePublished">07-01</time>
+    <div class="article-meta">
+      <a  href="/2016/10/22/linux-nginx-https/" class="article-date">
+      <time datetime="2016-10-22T03:13:15.000Z" itemprop="datePublished">2016-10-22</time>
 </a>
 
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx实现免费安全SSL
     </h1>
   
 
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
     <div class="article-category tagcloud">
     <a class="article-category-link" href="/categories/linux/">linux</a>
     </div>
 
 
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BLE/">BLE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/蓝牙/">蓝牙</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a  href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/2016/10/22/linux-lvs/" class="archive-article-date">
-      <time datetime="2016-10-22T03:13:15.000Z" itemprop="datePublished">10-22</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-    </div>
-
-
-          
+        
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境搭建/">环境搭建</a></li></ul>
     </div>
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/2016/10/22/linux-nginx-https/" class="archive-article-date">
-      <time datetime="2016-10-22T03:13:15.000Z" itemprop="datePublished">10-22</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境搭建/">环境搭建</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+      </div>
       
-        </div></section>
+    
+    <div class="article-entry" itemprop="articleBody">
       
+          
+        <p>HTTPS实际是SSL over HTTP, 该协议通过SSL在发送方把原始数据进行加密，在接收方解密，因此，所传送的数据不容易被网络黑客截获和破解。本文主要介绍如何实现免费安全高可用的SSL<br><a id="more"></a></p>
+<h2 id="生成安全证书"><a href="#生成安全证书" class="headerlink" title="生成安全证书"></a>生成安全证书</h2><p>CSR文件生成工具<br><a href="https://csr.chinassl.net/generator-csr.html" target="_blank" rel="noopener">https://csr.chinassl.net/generator-csr.html</a><br>生成crt和key<br><a href="https://www.wosign.com/Products/free_SSL.htm" target="_blank" rel="noopener">https://www.wosign.com/Products/free_SSL.htm</a> 或<a href="https://www.chinassl.net/ssltools/free-ssl.html" target="_blank" rel="noopener">https://www.chinassl.net/ssltools/free-ssl.html</a><br>傻瓜式生成，中间需要进行网站验证</p>
+<h2 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80 default backlog=2048;   如果只接受https请求 则需要将此行删掉，否则同时支持http和https请求</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name 域名;</span><br><span class="line">    root /var/www/html;</span><br><span class="line"></span><br><span class="line">    ssl_certificate /usr/local/Tengine/sslcrt/linuxyan.com.crt;</span><br><span class="line">    ssl_certificate_key /usr/local/Tengine/sslcrt/linuxyan.com.key;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a  href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
+    </div>
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/2015/11/02/linux-ngrok/" class="archive-article-date">
-      <time datetime="2015-11-02T08:06:11.000Z" itemprop="datePublished">11-02</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境搭建/">环境搭建</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/2015/01/22/linux-iptables/" class="archive-article-date">
-      <time datetime="2015-01-22T02:15:15.000Z" itemprop="datePublished">01-22</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
+    <div class="dashang">
+        <img src="http://p07vzamyt.bkt.clouddn.com/weixinpay.png"/>
+        <img src="http://p07vzamyt.bkt.clouddn.com/zhifubaopay.png"/>
+    </div>
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 赵华安(Andy) 的个人博客">赵华安(Andy)</a></p>
+        <p><span>发布时间:</span>2016年10月22日 - 11时13分</p>
+        <p><span>最后更新:</span>2017年12月03日 - 14时13分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/22/linux-nginx-https/" title="Nginx实现免费安全SSL">http://andy-huaan.github.io/2016/10/22/linux-nginx-https/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://andy-huaan.github.io/2016/10/22/linux-nginx-https/　　作者: 赵华安(Andy)" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
     </div>
 
 
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/软件配置/">软件配置</a></li></ul>
-    </div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
+<nav id="article-nav">
+  
+    <a  href="/2016/10/22/linux-lvs/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          LVS+KeepAlived高可用集群搭建
+        
+      </div>
+    </a>
+  
+  
+    <a  href="/2016/01/10/css-skills/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">常用CSS技巧总结</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成安全证书"><span class="toc-number">1.</span> <span class="toc-text">生成安全证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx配置"><span class="toc-number">2.</span> <span class="toc-text">Nginx配置</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
 
     
 
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/2016/10/22/linux-lvs/" title="上一篇: LVS+KeepAlived高可用集群搭建">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/2016/01/10/css-skills/" title="下一篇: 常用CSS技巧总结">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/10/css-skills/">常用CSS技巧总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a></li></ul>
+    <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
 
 </div>
       <footer id="footer">
@@ -563,17 +537,6 @@
         };
     })
 </script>
-
-    <button class="hide-labels">TAG 开关</button>
-    <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
-    </script>
-    <script>
-        $(document).ready(function() {
-            $("button").click(function() {
-                $(".article-info").toggle(200);
-            });
-        });
-    </script>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
