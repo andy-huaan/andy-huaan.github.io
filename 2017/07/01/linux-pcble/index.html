@@ -7,17 +7,17 @@
   
   
   
-  <title>Java PC端蓝牙(BLE)开发 | 赵华安</title>
+  <title>Java PC端蓝牙(BLE)开发 | 技术部</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信">
 <meta name="keywords" content="Linux,蓝牙,BLE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java PC端蓝牙(BLE)开发">
 <meta property="og:url" content="http://andy-huaan.github.io/2017/07/01/linux-pcble/index.html">
-<meta property="og:site_name" content="赵华安">
+<meta property="og:site_name" content="技术部">
 <meta property="og:description" content="Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-03T05:48:23.359Z">
+<meta property="og:updated_time" content="2017-12-05T02:50:50.995Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java PC端蓝牙(BLE)开发">
 <meta name="twitter:description" content="Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信">
@@ -64,7 +64,7 @@
             
         </a>
         <hgroup>
-          <h1 class="header-author"><a href="http://andy.cnlod.com" target="_blank">赵华安(Andy)</a></h1>
+          <h1 class="header-author"><a href="http://andy.cnlod.com" target="_blank">北京大医同盟-技术部</a></h1>
         </hgroup>
         
         <p class="header-subtitle">遇到问题的态度，处理问题的思路和方法，这就是能力</p>
@@ -228,7 +228,7 @@
       <nav id="mobile-nav">
       <div class="overlay">
           <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">赵华安(Andy)</a></h1>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">北京大医同盟-技术部</a></h1>
       </div>
     <div class="intrude-less">
         <header id="header" class="inner">
@@ -238,7 +238,7 @@
                 
             </a>
             <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">赵华安(Andy)</a></h1>
+              <h1 class="header-author"><a href="/" title="回到主页">北京大医同盟-技术部</a></h1>
             </hgroup>
             
             <p class="header-subtitle">遇到问题的态度，处理问题的思路和方法，这就是能力</p>
@@ -320,7 +320,7 @@
       
           
         <p>Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见<br>本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信<br><a id="more"></a></p>
-<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="软件版本说明"><a href="#软件版本说明" class="headerlink" title="软件版本说明"></a>软件版本说明</h3><p>PC下的蓝牙开发，主要依托BlueZ技术，由于ubuntu系统自带BlueZ，因此BlueZ相关软件无需自行安装，需安装系列软件</p>
+<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="软件版本说明"><a href="#软件版本说明" class="headerlink" title="软件版本说明"></a>软件版本说明</h3><p>PC下的蓝牙开发，主要依托BlueZ技术，由于ubuntu系统自带BlueZ，因此BlueZ相关软件无需自行安装，需安装下列软件</p>
 <ul>
 <li>系统版本：ubuntu-17.04-desktop-amd64</li>
 <li>cmake版本：3.9.0</li>
@@ -357,7 +357,7 @@
 <li>安装TinyB</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/intel-iot-devkit/tinyb.git</span><br><span class="line">cd tinyb</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake -DBUILDJAVA=ON ..</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>编译TinyB后，需要在Java项目中引用的文件libjavatinyb.so、libtinyb.so、tinyb.jar</p>
+<p>编译TinyB成功后，需要将编译生成的文件：libjavatinyb.so、libtinyb.so、tinyb.jar引入到Java项目中</p>
 <h2 id="软件配置及检测"><a href="#软件配置及检测" class="headerlink" title="软件配置及检测"></a>软件配置及检测</h2><ul>
 <li>确保蓝牙没有被阻止：rfkill unblock bluetooth</li>
 <li>确保blueoothd守护进程已启动，ps -eF | grep bluetoothd，如果蓝牙守护进程没有启动：systemctl start bluetooth.service</li>
@@ -373,8 +373,9 @@
 <ol>
 <li>扫描设备-&gt;建立链接-&gt;扫描服务-&gt;扫描特征值-&gt;数据读写</li>
 <li>定向链接设备-&gt;建立链接-&gt;定向获取服务-&gt;定向获取特征值-&gt;数据读写</li>
-<li>定向链接设备(扫描设备)-&gt;建立链接-&gt;定向获取服务(扫描服务)-&gt;定向获取特征值(扫描特征值)-&gt;自动数据通知<br>具体Java代码请联系作者<a href="http://andy.cnlod.com" target="_blank" rel="noopener">赵华安</a>获取</li>
+<li>定向链接设备(扫描设备)-&gt;建立链接-&gt;定向获取服务(扫描服务)-&gt;定向获取特征值(扫描特征值)-&gt;自动数据通知</li>
 </ol>
+<p>详细Java代码请联系作者<a href="http://andy.cnlod.com" target="_blank" rel="noopener">赵华安</a>获取</p>
 
       
     </div>
@@ -388,12 +389,12 @@
     </div>
     <div class="copyright">
         <p><span>本文标题:</span><a  href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></p>
-        <p><span>文章作者:</span><a  href="/" title="访问 赵华安(Andy) 的个人博客">赵华安(Andy)</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 北京大医同盟-技术部 的个人博客">北京大医同盟-技术部</a></p>
         <p><span>发布时间:</span>2017年07月01日 - 13时06分</p>
-        <p><span>最后更新:</span>2017年12月03日 - 13时48分</p>
+        <p><span>最后更新:</span>2017年12月05日 - 10时50分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/01/linux-pcble/" title="Java PC端蓝牙(BLE)开发">http://andy-huaan.github.io/2017/07/01/linux-pcble/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://andy-huaan.github.io/2017/07/01/linux-pcble/　　作者: 赵华安(Andy)" title=""></span>
+            <span class="copy-path" data-clipboard-text="原文: http://andy-huaan.github.io/2017/07/01/linux-pcble/　　作者: 北京大医同盟-技术部" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -405,8 +406,8 @@
 <nav id="article-nav">
   
   
-    <a  href="/2016/10/22/linux-nginx-https/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Nginx实现免费安全SSL</div>
+    <a  href="/2016/10/22/linux-lvs/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LVS+KeepAlived高可用集群搭建</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -469,12 +470,12 @@
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2016/10/22/linux-nginx-https/" title="下一篇: Nginx实现免费安全SSL">
+            <a  href="/2016/10/22/linux-lvs/" title="下一篇: LVS+KeepAlived高可用集群搭建">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/hexo-AndyDarcula-config/">Hexo Darcula自用主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/10/css-skills/">常用CSS技巧总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/hexo-AndyDarcula-config/">Hexo Darcula自用主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/10/css-skills/">常用CSS技巧总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a></li></ul>
     <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
@@ -508,7 +509,7 @@
     <div class="outer">
         <div id="footer-info">
             <div class="footer-left">
-                <a href="http://andy.cnlod.com" target="_blank">&copy; 2017 赵华安(Andy)</a>
+                <a href="http://andy.cnlod.com" target="_blank">&copy; 2017 北京大医同盟-技术部</a>
             </div>
             <div class="footer-right">
                 <a href="http://www.cnlod.com" target="_blank">北京大医同盟健康管理有限责任公司</a>
