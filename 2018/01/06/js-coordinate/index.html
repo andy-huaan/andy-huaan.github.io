@@ -4,23 +4,23 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
   
-   
-    <meta name="keywords" content="hexo" />
   
   
   
-  <title>Tag: hexo | 技术部</title>
+  <title>javascript中常用坐标属性offset、scroll、client介绍 | 技术部</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="andy 9527 华安 赵华安 个人网站 Java 前端 大数据 IT 招聘 zhaohuaan">
-<meta property="og:type" content="website">
-<meta property="og:title" content="技术部">
-<meta property="og:url" content="http://blog.cnlod.com/tags/hexo/index.html">
+  <meta name="description" content="工作中javascript的offset、client、scroll三大家族在使用过程中非常频繁，接下来将对此进行一一介绍，需要了解的朋友可以参考下">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript中常用坐标属性offset、scroll、client介绍">
+<meta property="og:url" content="http://blog.cnlod.com/2018/01/06/js-coordinate/index.html">
 <meta property="og:site_name" content="技术部">
-<meta property="og:description" content="andy 9527 华安 赵华安 个人网站 Java 前端 大数据 IT 招聘 zhaohuaan">
+<meta property="og:description" content="工作中javascript的offset、client、scroll三大家族在使用过程中非常频繁，接下来将对此进行一一介绍，需要了解的朋友可以参考下">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-09T06:57:39.200Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="技术部">
-<meta name="twitter:description" content="andy 9527 华安 赵华安 个人网站 Java 前端 大数据 IT 招聘 zhaohuaan">
+<meta name="twitter:title" content="javascript中常用坐标属性offset、scroll、client介绍">
+<meta name="twitter:description" content="工作中javascript的offset、client、scroll三大家族在使用过程中非常频繁，接下来将对此进行一一介绍，需要了解的朋友可以参考下">
   
   
     <link rel="icon" href="/img/favicon.png">
@@ -43,9 +43,9 @@
           fancybox: true,
           animate: true,
           isHome: false,
-          isPost: false,
+          isPost: true,
           isArchive: false,
-          isTag: true,
+          isTag: false,
           isCategory: false,
           open_in_new: true
       }
@@ -279,60 +279,222 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-js-coordinate" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a  href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/2016/07/17/hexo-AndyDarcula-config/" class="archive-article-date">
-      <time datetime="2016-07-17T04:21:15.000Z" itemprop="datePublished">07-17</time>
+    <div class="article-meta">
+      <a  href="/2018/01/06/js-coordinate/" class="article-date">
+      <time datetime="2018-01-06T03:21:11.000Z" itemprop="datePublished">2018-01-06</time>
 </a>
 
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/2016/07/17/hexo-AndyDarcula-config/">Hexo Darcula自用主题</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript中常用坐标属性offset、scroll、client介绍
     </h1>
   
 
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/designer/">designer</a>
+    <a class="article-category-link" href="/categories/coding/">coding</a>
     </div>
 
 
-          
+        
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/赵华安/">赵华安</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
     </div>
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>工作中javascript的offset、client、scroll三大家族在使用过程中非常频繁，接下来将对此进行一一介绍，需要了解的朋友可以参考下<br><a id="more"></a></p>
+<h2 id="offset家族"><a href="#offset家族" class="headerlink" title="offset家族"></a>offset家族</h2><p>offset:偏移，补偿，位移的意思 偏移的距离<br>offsetHeight和offsetWidth: 可以检测盒子的宽高，包括宽高本身，padding，border。不包括margin<br>offsetHeight = height+padding+border;(不加margin)<br>offsetWidth = width+padding+border;(不加margin)</p>
+<h3 id="offset-和style-区别"><a href="#offset-和style-区别" class="headerlink" title="offset..和style.. 区别"></a>offset..和style.. 区别</h3><ul>
+<li>最大区别在于offsetLeft可以返回没有定位盒子的距离左侧的位置。如果父系盒子中都没有定位，以body为准。style.left只能获取行内式，如果没有返回“”;</li>
+<li>offsetTop 返回的是数字，而 style.top 返回的是字符串，XXpx</li>
+<li>offsetTop 只读，而 style.top 可读写。</li>
+<li>如果没有给 HTML 元素指定过 top 样式，则style.top 返回的是空字符串</li>
+</ul>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&apos;box&apos;&gt;&lt;/div&gt;</span><br><span class="line">let oBox = document.getElementById(&apos;box&apos;);</span><br><span class="line">oBox.offsetTop 指 oBox元素距离上方或父级的位置，整型，单位像素。</span><br><span class="line">oBox.offsetLeft 指 oBox元素 距离左方或父级的位置，整型，单位像素。</span><br><span class="line">oBox.offsetWidth 指 oBox元素自身的宽度，整型，单位像素。</span><br><span class="line">oBox.offsetHeight 指 oBox元素自身的高度，整型，单位像素。</span><br></pre></td></tr></table></figure>
+<h2 id="client家族"><a href="#client家族" class="headerlink" title="client家族"></a>client家族</h2><p>client:可视区、客户端<br>clientWidth获取网页可视区域宽度（两种用法）<br>clientHeight  获取网页可视区域高度（两种用法）<br>调用者不同，意义不同：盒子调用：指盒子本身。body/html调用：可视区域大小，浏览器的可视区域除了IE以外的所有浏览器都将此信息保存在window对象中</p>
+<h3 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h3><ul>
+<li>获取窗口宽度</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (window.innerWidth&#123;</span><br><span class="line">    winWidth = window.innerWidth;</span><br><span class="line">&#125; else&#123;</span><br><span class="line">    winWidth = document.body.clientWidth || document.documentElement.clientHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>获取窗口高度</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (window.innerHeight)&#123;</span><br><span class="line">    winHeight = window.innerHeight;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    winHeight = document.body.clientHeight || document.documentElement.clientWidth;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述是考虑浏览器的兼容性的写法，可以直接使用</p>
+<h2 id="scroll家族"><a href="#scroll家族" class="headerlink" title="scroll家族"></a>scroll家族</h2><p>scroll:卷页，卷曲<br>scrollWidth/scrollHeight 盒子内容的宽高,不包括border和margin,如果有内容超出了，显示内容的高度<br>scrollTop和scrollLeft  被卷去的左侧和头部（浏览器无法显示的左/头部）</p>
+<h3 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var scrollTop = window.pageYOffset  || document.body.scrollTop || document.documentElement.scrollTop|| 0;</span><br><span class="line">var scrollLeft = window.pageXOffset || document.body.scrollLeft || document.documentElement.scrollLeft || 0;</span><br></pre></td></tr></table></figure>
+<p>上述是考虑浏览器的兼容性的写法，可以直接使用</p>
+
+      
+    </div>
+    
   </div>
+  
+    
+    <div class="dashang">
+        <img src="http://p07vzamyt.bkt.clouddn.com/weixinpay.png"/>
+        <img src="http://p07vzamyt.bkt.clouddn.com/zhifubaopay.png"/>
+    </div>
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2018/01/06/js-coordinate/">javascript中常用坐标属性offset、scroll、client介绍</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 北京大医同盟-技术部 的个人博客">北京大医同盟-技术部</a></p>
+        <p><span>发布时间:</span>2018年01月06日 - 11时21分</p>
+        <p><span>最后更新:</span>2018年01月09日 - 14时57分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/01/06/js-coordinate/" title="javascript中常用坐标属性offset、scroll、client介绍">http://blog.cnlod.com/2018/01/06/js-coordinate/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.cnlod.com/2018/01/06/js-coordinate/　　作者: 北京大医同盟-技术部" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a  href="/2018/01/08/js-lazyload/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          纯JS实现超简单图片懒加载
+        
+      </div>
+    </a>
+  
+  
+    <a  href="/2017/12/06/designer-wechat-tools/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何制作一篇漂亮的微信推文</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#offset家族"><span class="toc-number">1.</span> <span class="toc-text">offset家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#offset-和style-区别"><span class="toc-number">1.1.</span> <span class="toc-text">offset..和style.. 区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例代码"><span class="toc-number">1.2.</span> <span class="toc-text">示例代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#client家族"><span class="toc-number">2.</span> <span class="toc-text">client家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例代码-1"><span class="toc-number">2.1.</span> <span class="toc-text">示例代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scroll家族"><span class="toc-number">3.</span> <span class="toc-text">scroll家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例代码-2"><span class="toc-number">3.1.</span> <span class="toc-text">示例代码</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+
+
 
     
 
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/2018/01/08/js-lazyload/" title="上一篇: 纯JS实现超简单图片懒加载">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/2017/12/06/designer-wechat-tools/" title="下一篇: 如何制作一篇漂亮的微信推文">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/08/js-lazyload/">纯JS实现超简单图片懒加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/06/js-coordinate/">javascript中常用坐标属性offset、scroll、client介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/06/designer-wechat-tools/">如何制作一篇漂亮的微信推文</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/java-jdk9/">JDK9新特性揭秘</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/hexo-AndyDarcula-config/">Hexo Darcula自用主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/10/css-skills/">常用CSS技巧总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a></li></ul>
+    <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
 
 </div>
       <footer id="footer">
@@ -399,17 +561,6 @@
         };
     })
 </script>
-
-    <button class="hide-labels">TAG 开关</button>
-    <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
-    </script>
-    <script>
-        $(document).ready(function() {
-            $("button").click(function() {
-                $(".article-info").toggle(200);
-            });
-        });
-    </script>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
