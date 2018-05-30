@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="技术部">
 <meta property="og:description" content="Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-06T01:56:42.947Z">
+<meta property="og:updated_time" content="2018-04-18T06:50:08.521Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java PC端蓝牙(BLE)开发">
 <meta name="twitter:description" content="Android、IOS等智能设备下的蓝牙通信稀疏平常，但PC端非嵌入式蓝牙开发却不常见本文基于Java开发语言，在PC端与蓝牙BLE设备通信，可实现一对一，一对多模式下通信，并可以实现基于多蓝牙HUB下的长距离通信">
@@ -198,7 +198,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/BLE/" style="font-size: 10px;">BLE</a> <a href="/tags/JS/" style="font-size: 10px;">JS</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/环境搭建/" style="font-size: 15px;">环境搭建</a> <a href="/tags/蓝牙/" style="font-size: 10px;">蓝牙</a> <a href="/tags/赵华安/" style="font-size: 20px;">赵华安</a> <a href="/tags/赵小龙/" style="font-size: 12.5px;">赵小龙</a> <a href="/tags/软件配置/" style="font-size: 10px;">软件配置</a>
+                        <a href="/tags/BLE/" style="font-size: 10px;">BLE</a> <a href="/tags/JS/" style="font-size: 11.67px;">JS</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/冒泡排序/" style="font-size: 10px;">冒泡排序</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/希尔排序/" style="font-size: 10px;">希尔排序</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/快速排序/" style="font-size: 10px;">快速排序</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/环境搭建/" style="font-size: 13.33px;">环境搭建</a> <a href="/tags/直接插入排序/" style="font-size: 10px;">直接插入排序</a> <a href="/tags/简单选择排序/" style="font-size: 10px;">简单选择排序</a> <a href="/tags/算法/" style="font-size: 16.67px;">算法</a> <a href="/tags/蓝牙/" style="font-size: 10px;">蓝牙</a> <a href="/tags/赵华安/" style="font-size: 20px;">赵华安</a> <a href="/tags/赵小龙/" style="font-size: 11.67px;">赵小龙</a> <a href="/tags/软件配置/" style="font-size: 10px;">软件配置</a>
                     </div>
                 </section>
                 
@@ -365,7 +365,7 @@
 <h2 id="软件配置及检测"><a href="#软件配置及检测" class="headerlink" title="软件配置及检测"></a>软件配置及检测</h2><ul>
 <li>确保蓝牙没有被阻止：rfkill unblock bluetooth</li>
 <li>确保blueoothd守护进程已启动，ps -eF | grep bluetoothd，如果蓝牙守护进程没有启动：systemctl start bluetooth.service</li>
-<li>确保使用-E标志运行bluetoothd，如果没有：vim /lib/systemd/system/bluetooth.service 在启动命令后添加-E参数</li>
+<li>确保使用-E标志运行bluetoothd，如果没有：vim /lib/systemd/system/bluetooth.service 在启动命令后添加-E参数<br>重启：systemctl daemon-reload</li>
 <li>确保您的DBus策略允许用户访问BlueZ GATT界面</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/dbus-1/system.d/bluetooth.conf  在&lt;policy context=&quot;default&quot;&gt;下添加</span><br><span class="line">&lt;allow send_interface=&quot;org.bluez.GattService1&quot;/&gt;</span><br><span class="line">&lt;allow send_interface=&quot;org.bluez.GattCharacteristic1&quot;/&gt;</span><br><span class="line">&lt;allow send_interface=&quot;org.bluez.GattDescriptor1&quot;/&gt;</span><br></pre></td></tr></table></figure>
@@ -395,7 +395,7 @@
         <p><span>本文标题:</span><a  href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 北京大医同盟-技术部 的个人博客">北京大医同盟-技术部</a></p>
         <p><span>发布时间:</span>2017年07月01日 - 13时06分</p>
-        <p><span>最后更新:</span>2017年12月06日 - 09时56分</p>
+        <p><span>最后更新:</span>2018年04月18日 - 14时50分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/01/linux-pcble/" title="Java PC端蓝牙(BLE)开发">http://blog.cnlod.com/2017/07/01/linux-pcble/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.cnlod.com/2017/07/01/linux-pcble/　　作者: 北京大医同盟-技术部" title=""></span>
@@ -419,8 +419,8 @@
     </a>
   
   
-    <a  href="/2016/10/22/linux-lvs/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LVS+KeepAlived高可用集群搭建</div>
+    <a  href="/2016/10/22/linux-nginx-https/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Nginx实现免费安全SSL</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -510,12 +510,12 @@ with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createEle
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2016/10/22/linux-lvs/" title="下一篇: LVS+KeepAlived高可用集群搭建">
+            <a  href="/2016/10/22/linux-nginx-https/" title="下一篇: Nginx实现免费安全SSL">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/08/js-lazyload/">纯JS实现超简单图片懒加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/06/js-coordinate/">javascript中常用坐标属性offset、scroll、client介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/06/designer-wechat-tools/">如何制作一篇漂亮的微信推文</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/java-jdk9/">JDK9新特性揭秘</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/hexo-AndyDarcula-config/">Hexo Darcula自用主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/10/css-skills/">常用CSS技巧总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/java-algorithm-guibing/">归并排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/java-algorithm-dui/">堆排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/java-algorithm-xuanze/">简单选择排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/java-algorithm-xier/">希尔排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/29/java-algorithm-insert/">直接插入排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/28/java-algorithm-kuaisu/">快速排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/28/java-algorithm-maopao/">冒泡排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/28/java-algorithm/">经典算法分析总汇</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/27/java-data-structure/">基础数据结构分析汇总</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/08/js-lazyload/">纯JS实现超简单图片懒加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/06/js-coordinate/">javascript中常用坐标属性offset、scroll、client介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/06/designer-wechat-tools/">如何制作一篇漂亮的微信推文</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/26/java-jdk9/">JDK9新特性揭秘</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/linux-pcble/">Java PC端蓝牙(BLE)开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-nginx-https/">Nginx实现免费安全SSL</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/linux-lvs/">LVS+KeepAlived高可用集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/hexo-AndyDarcula-config/">Hexo Darcula自用主题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/10/css-skills/">常用CSS技巧总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/linux-ngrok/">Centos6.5搭建Ngrok反向代理服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/01/22/linux-iptables/">Linux防火墙及IP配置</a></li></ul>
     <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
